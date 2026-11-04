@@ -7,42 +7,42 @@ import rcon_ftp
 import parsing
 import server_list
 
-def crear_pestana_ftp(notebook):
+def crear_pestana_sftp(notebook):
     # Cargar configuración desde herramienta.ini
     parametros = rcon_ftp.cargar_configuracion()
 
-    # Crear la pestaña FTP
-    pestaña_ftp = ttk.Frame(notebook)
-    notebook.add(pestaña_ftp, text='Carga al servidor')
+    # Crear la pestaña SFTP
+    pestaña_sftp = ttk.Frame(notebook)
+    notebook.add(pestaña_sftp, text='Carga al servidor')
 
-    # Campos de entrada para FTP
-    tk.Label(pestaña_ftp, text="Dirección IP:").grid(row=0, column=0, padx=10, pady=5, sticky='e')
-    entrada_ip = tk.Entry(pestaña_ftp, width=30)
+    # Campos de entrada para SFTP
+    tk.Label(pestaña_sftp, text="Dirección IP:").grid(row=0, column=0, padx=10, pady=5, sticky='e')
+    entrada_ip = tk.Entry(pestaña_sftp, width=30)
     entrada_ip.grid(row=0, column=1, padx=10, pady=5)
     entrada_ip.insert(0, parametros.get("ip", ""))
 
-    tk.Label(pestaña_ftp, text="Puerto:").grid(row=1, column=0, padx=10, pady=5, sticky='e')
-    entrada_puerto = tk.Entry(pestaña_ftp, width=30)
+    tk.Label(pestaña_sftp, text="Puerto:").grid(row=1, column=0, padx=10, pady=5, sticky='e')
+    entrada_puerto = tk.Entry(pestaña_sftp, width=30)
     entrada_puerto.grid(row=1, column=1, padx=10, pady=5)
     entrada_puerto.insert(0, parametros.get("puerto", ""))
 
-    tk.Label(pestaña_ftp, text="Usuario:").grid(row=2, column=0, padx=10, pady=5, sticky='e')
-    entrada_usuario = tk.Entry(pestaña_ftp, width=30)
+    tk.Label(pestaña_sftp, text="Usuario:").grid(row=2, column=0, padx=10, pady=5, sticky='e')
+    entrada_usuario = tk.Entry(pestaña_sftp, width=30)
     entrada_usuario.grid(row=2, column=1, padx=10, pady=5)
     entrada_usuario.insert(0, parametros.get("usuario", ""))
 
-    tk.Label(pestaña_ftp, text="Contraseña:").grid(row=3, column=0, padx=10, pady=5, sticky='e')
-    entrada_contrasena = tk.Entry(pestaña_ftp, show="*", width=30)
+    tk.Label(pestaña_sftp, text="Contraseña:").grid(row=3, column=0, padx=10, pady=5, sticky='e')
+    entrada_contrasena = tk.Entry(pestaña_sftp, show="*", width=30)
     entrada_contrasena.grid(row=3, column=1, padx=10, pady=5)
     entrada_contrasena.insert(0, parametros.get("password", ""))
 
-    tk.Label(pestaña_ftp, text="Ruta principal:").grid(row=4, column=0, padx=10, pady=5, sticky='e')
-    entrada_ruta = tk.Entry(pestaña_ftp, width=30)
+    tk.Label(pestaña_sftp, text="Ruta principal:").grid(row=4, column=0, padx=10, pady=5, sticky='e')
+    entrada_ruta = tk.Entry(pestaña_sftp, width=30)
     entrada_ruta.grid(row=4, column=1, padx=10, pady=5)
     entrada_ruta.insert(0, parametros.get("ruta_principal", ""))
 
     # Cuadro de estado para SFTP
-    cuadro_estado = scrolledtext.ScrolledText(pestaña_ftp, width=70, height=10, state='normal')
+    cuadro_estado = scrolledtext.ScrolledText(pestaña_sftp, width=70, height=10, state='normal')
     cuadro_estado.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
 
     def ejecutar_subida():
@@ -64,7 +64,7 @@ def crear_pestana_ftp(notebook):
         hilo = threading.Thread(target=proceso_subida)
         hilo.start()
 
-    boton_subir = tk.Button(pestaña_ftp, text="Subir Archivos", command=ejecutar_subida)
+    boton_subir = tk.Button(pestaña_sftp, text="Subir Archivos", command=ejecutar_subida)
     boton_subir.grid(row=4, column=3, columnspan=2, pady=20)
 
 def crear_pestana_rcon(notebook):
@@ -327,8 +327,8 @@ def crear_interfaz():
     # Inicializar la lista de entidades al iniciar la aplicación
     parsing.actualizar_lista_entidades(treeview_entidades, maps_dir, ents_dir, text_area_view)
 
-    # Integrar la nueva pestaña de FTP
-    crear_pestana_ftp(notebook)
+    # Integrar la nueva pestaña de SFTP
+    crear_pestana_sftp(notebook)
     crear_pestana_rcon(notebook)
 
     ventana.mainloop()
